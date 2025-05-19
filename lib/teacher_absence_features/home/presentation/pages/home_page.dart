@@ -5,7 +5,6 @@ import 'package:shared_core/shared_core.dart';
 
 import '../../../../core/assets.dart';
 import '../../../../core/top_navigation_cubit/top_navigation_cubit.dart';
-import '../../../../student_absence_features/home/presentation/logic/dropdown_cubit/dropdown_cubit.dart';
 import '../../domain/entities/navgation_page_data.dart';
 import '../widgets/dashboard.dart';
 import '../widgets/home.dart';
@@ -17,10 +16,8 @@ class TeacherHomePage extends StatefulWidget {
   static const name = 'teacher_home_page';
   static const routeName = '/teacher_home_page';
 
-  TeacherHomePage({super.key});
+  const TeacherHomePage({super.key});
 
-  final navigationCubit = TopNavigationCubit();
-  final dropdownCubit = DropdownCubit(0);
 
   @override
   State<TeacherHomePage> createState() => _TeacherHomePageState();
@@ -29,51 +26,41 @@ class TeacherHomePage extends StatefulWidget {
 class _TeacherHomePageState extends State<TeacherHomePage> {
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-  providers: [
-    BlocProvider.value(
-  value: widget.navigationCubit,
-),
-    BlocProvider.value(
-      value: widget.dropdownCubit,
-    ),
-  ],
-  child: Scaffold(
-      // key: di<MenuControllerDrawer>().scaffoldKey,
-      appBar: AppBar(
-        title: Text('home').tr(),
-        actions: [
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Theme.of(context).colorScheme.tertiary,
-            ),
-            child: IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.notifications),
-              style: IconButton.styleFrom(
-                foregroundColor: Theme.of(context).colorScheme.surface,
+    return Scaffold(
+        // key: di<MenuControllerDrawer>().scaffoldKey,
+        appBar: AppBar(
+          title: Text('home').tr(),
+          actions: [
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Theme.of(context).colorScheme.tertiary,
               ),
+              child: IconButton(
+                onPressed: () {},
+                icon: Icon(Icons.notifications),
+                style: IconButton.styleFrom(
+                  foregroundColor: Theme.of(context).colorScheme.surface,
+                ),
+              ),
+            )
+          ],
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(80),
+            child: TopNavigatorDrawer(
+              pages: pages,
+              onPressed: context.read<TopNavigationCubit>().selectScreen,
             ),
-          )
-        ],
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(80),
-          child: TopNavigatorDrawer(
-            pages: pages,
-            onPressed: context.read<TopNavigationCubit>().selectScreen,
           ),
         ),
-      ),
-      backgroundColor: Theme.of(context).colorScheme.surface,
-      body: SafeArea(
-          child: Responsive(
-        mobile: _mobile(),
-        tablet: _tablet(),
-        desktop: _desktop(),
-      )),
-    ),
-);
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        body: SafeArea(
+            child: Responsive(
+          mobile: _mobile(),
+          tablet: _tablet(),
+          desktop: _desktop(),
+        )),
+      );
   }
 
   Widget _mobile() {
