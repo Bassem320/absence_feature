@@ -47,6 +47,6 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
     return getPage();
   }
 
-  Widget getPage() => TeacherProfile(appLogoPNG: '',);
+  Widget getPage() => TeacherProfile(appLogoPNG: widget.appLogoPNG,);
 
 }
