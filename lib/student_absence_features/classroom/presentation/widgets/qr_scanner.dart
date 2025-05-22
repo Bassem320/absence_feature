@@ -89,7 +89,7 @@ class _QrScannerState extends State<QrScanner> with WidgetsBindingObserver {
       child: MobileScanner(
         fit: BoxFit.cover,
         controller: controller,
-        errorBuilder: (context, error, child) {
+        errorBuilder: (context, error) {
           return ScannerErrorWidget(error: error);
         },
       ),
